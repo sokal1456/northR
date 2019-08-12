@@ -1,0 +1,99 @@
+---
+title: "An Exploration with Shiny"
+subtitle: "Awakening greatness one project at a time"
+author: "Soumya Kalra"
+date: "2019/08/11"
+output:
+  xaringan::moon_reader:
+    css: ["default", "rladies", "rladies-fonts"]
+    lib_dir: libs
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+```{r setup, include=FALSE}
+options(htmltools.dir.version = FALSE)
+#source("analysis.R")
+install.packages(c("magrittr", "lubridate", "readr", "dplyr", "ggplot2", "gt", "tidyverse"))
+```
+# This Talk:
+
+1. Introductions
+2. Why Shiny & Why Now? 
+3. Basics of Shiny
+4. UI with Shiny 
+5. Reactive Programming 
+6. Future development
+7. A few more cool applications
+---
+# Hi I am Soumya!
+
+- R-Ladies New York Founder
+- R/Finance Committee Member
+- Quantitative analyst in the public sector
+- Do a lot of hands of development in Shiny 
+
+--
+
+- disclaimer: all views in this presentation do not represent the views of my employer and are entirely my own. 
+
+--
+
+## Let's keep talking...
+<a href="mailto:sokal1456@gmail.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; sokal1456@gmail.com</a><br>
+<a href="http://twitter.com/SK_convergence"><i class="fa fa-twitter fa-fw"></i>&nbsp; @SK_convergence</a><br>
+---
+
+# What is Shiny?
+
+- Rstudio package authored by Joe Cheng
+
+--
+
+- Web development framework for R
+
+--
+
+- Can be used to build interactive web pages with R
+
+--
+
+- No knowledge of HTML/CSS/JavaScript required
+
+--
+
+- Can share R analysis with any audience type.
+
+---
+
+
+# Let's get started: Install shiny!
+
+```{r eval=F, echo=T}
+# install.pacakges("shiny")
+# library(shiny)
+runExample("01_hello")
+```
+
+```{r eval=T, echo=F}
+# install.pacakges("shiny")
+# library(shiny)
+runExample("01_hello")
+```
+
+# Shiny App Basics: Part 1
+
+- Every Shin App is made up of two parts
+
+- UI: a web page that shows the app to the user. UI is HTML using Shiny’s functions and is where the layout of hte app is defined (how the app looks). 
+
+- Server: a computer that powers the app that has the logic of the functionality. 
+
+---
+
+# Shiny App Basics: Part 2
+
+## Shiny Template 
+
