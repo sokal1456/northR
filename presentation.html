@@ -49,13 +49,118 @@ class: center, middle, inverse, title-slide
 &lt;a href="http://twitter.com/SK_convergence"&gt;&lt;i class="fa fa-twitter fa-fw"&gt;&lt;/i&gt;&amp;nbsp; @SK_convergence&lt;/a&gt;&lt;br&gt;
 ---
 
+background-image: url("https://media.giphy.com/media/Ta1zCPgNNr2GQ/giphy.gif")
+class: center, inverse
+
+
+---
+
+## Throughout this talk we will switch back and forth between demos and slides.  
+
+## Materials from this talk can be found here:
+
+
+
+---
+
 # What is Shiny?
 
 - Rstudio package authored by Joe Cheng
 
 --
 
+- Web development framework for R
+
+--
+
 - Can be used to build interactive web pages with R
+
+--
+
+- No knowledge of HTML/CSS/JavaScript required
+
+--
+
+- Can share R analysis with any audience type.
+
+---
+
+
+# Let's get started: Install shiny!
+
+
+
+```r
+# install.pacakges("shiny")
+library(shiny)
+runExample("01_hello")
+```
+
+
+---
+# Shiny App Basics: Part 1
+
+- Every Shiny App is made up of two parts
+
+- UI: a web page that shows the app to the user. UI is HTML using Shiny’s functions and is where the layout of hte app is defined (how the app looks). 
+
+- Server: a computer that powers the app that has the logic of the functionality. 
+
+---
+
+# Shiny App Basics: Part 2
+
+## Shiny Template 
+
+
+```r
+library(shiny)
+ui &lt;- fluidPage()
+server &lt;- function(input, output) {}
+shinyApp(ui = ui, server = server)
+```
+
+---
+
+# Running a Shiny app: Method 1
+
+--
+
+### Create a standalone app.R 
+--
+
+- All your code is in one place
+
+- your file must be named app.R for Rstudio to recognize it as a shiny app.
+
+
+---
+
+# Running a Shiny app: Method 2
+
+--
+
+### Create a ui.R and server.R 
+--
+
+- This is great for more complex applications
+
+- our examples today will primarily be app.R files to make the concepts easy to follow.
+
+---
+
+# Running a Shiny app: Method 3
+
+--
+
+### In Rstudio &gt;&gt; File &gt;&gt; Shiny Web App
+--
+
+- this will automatically set up the template for you.
+
+- you can customize it like app
+
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
