@@ -18,6 +18,7 @@ options(htmltools.dir.version = FALSE)
 #source("analysis.R")
 #install.packages(c("magrittr", "lubridate", "readr", "dplyr", "ggplot2", "gt", "tidyverse"))
 ```
+
 # This Talk:
 
 1. Introductions
@@ -45,7 +46,10 @@ options(htmltools.dir.version = FALSE)
 <a href="mailto:sokal1456@gmail.com"><i class="fa fa-paper-plane fa-fw"></i>&nbsp; sokal1456@gmail.com</a><br>
 <a href="http://twitter.com/SK_convergence"><i class="fa fa-twitter fa-fw"></i>&nbsp; @SK_convergence</a><br>
 ---
+Packages required to be installed:
 
+shiny, ggplot2, fivethirtyeight
+---
 background-image: url("https://media.giphy.com/media/Ta1zCPgNNr2GQ/giphy.gif")
 class: center, inverse
 
@@ -217,10 +221,11 @@ shinyApp(ui=ui, server=server)
 
 ## Now let's build a real app using college grad student data (fivethirtyeight package) 
 
----
-# App setup: Step 1
 
-- load the data from five thirty eight
+---
+# App Basics
+
+- Step 1:load the data from five thirty eight
 ```{r eval=F, echo=T}
 library(shiny)
 library(fivethirtyeight)
@@ -229,20 +234,60 @@ server <- function(input, output) {}
 shinyApp(ui = ui, server = server)
 ```
 
+
+---
+background-image: url("https://media.giphy.com/media/xUA7bb57OiYdtIk6xG/giphy.gif")
+class: center, inverse
+
 ---
 
-# UI with HTML
+# Remember the ui portion of the app 
 
-- UI simply creates HTML
+```{r eval=F, echo=T}
+library(shiny)
+library(fivethirtyeight)
+ui <- fluidPage()
+server <- function(input, output) {}
+shinyApp(ui = ui, server = server)
+```
+
+
+---
+# App Basics: UI 
+
+## Inputs and Outputs
+
+- fluidPage - sets up basic visual structure of a page.
+
+- selectInput(others like it): allow users to interact and provide a value
+
+- verbatimTextOutput() and tableOutput() are output controls that tell Shiny where to put the output.
+
+
+---
+
+# UI 
+
+- UI simply creates HTML (Shiny allows you to create UI without having to know HTML)
+
 --
+
 - HTML tags can be found at http://shiny.rstudio.com/articles/tag-glossary.html
+
 --
+
 - Simple ones: h1() = header1, br() = line break, strong() = bold text
+
 --
+
 - You can access HTML tag using `tags` object
+
 --
+
 - h2 = tags$h2(), br = tags$br()
+
 --
+
 - Don't have to use `tags` for common objects
 
 
@@ -273,11 +318,17 @@ shinyApp(ui = ui, server = server)
 # UI with Layouts
 
 - Typically all items stack up after the other.
+
 --
+
 - Layouts: http://shiny.rstudio.com/articles/layout-guide.html
+
 --
+
 - advanced layouts: fluidRow and column to build your layout up from a grid system or navbarpage
+
 --
+
 - We’ll use sidebarLayout() as done in the example
 
 ---
@@ -298,9 +349,8 @@ shinyApp(ui = ui, server = server)
 
 - fluidpage creates a page that dynamically adapts to the size of your window
 
-- look at basics_ui.R to the right
+- look at basics_ui_right_04.R for examples
 
--
 
 ---
 
@@ -312,15 +362,147 @@ shinyApp(ui = ui, server = server)
 
 # UI: Widgets
 
-- shiny also has built in widgets
+- shiny also has built in widgets 
 
 .pull-center[
 ![](img/shiny_widgets.png)]
 
+---
+
+# UI: Widgets
+
+- you can add widgets in your sidebarPanel or mainPanel of the app
+
+- All widgets have the first two arguments in common:
+
+    1. name for the widget so you can access the widget and trigger actions or effects.
+    2. label: the name of the widget in your app. 
+    
+- learn more about widgets: https://shiny.rstudio.com/tutorial/written-tutorial/lesson3/
+
+---
+
+# Let's go back to the app we were trying to build with college grad data
+
+
+.pull-center[
+![](img/college_grad_ui.png)]
 
 
 ---
 
+# Session
+
+- A session is the state of one live instance of a running shiny app
+
+- begins when app is loaded in a browser 
+
+- each session needs to be independent to avoid overlapping actions
+
+- the server function is called once for each session (private scope) so every variable inside the server function is only available to that function.
+---
+
+# Server 
+
+- Three components:input, output, session
+
+- session begins when shiny app runs
+
+- input:  list-like object that has all the input data from the user interaction with the browser
+
+```{r eval=F, echo=T}
+
+ui <- fluidPage(
+  numericInput("count", label = "Number of values", value = 100)
+)
+
+```
+---
+# Server
+- input objects are read only from the browser(ultimate source of info). So this will return an error:
+
+```{r eval=F, echo=T}
+server <- function(input, output, session) {
+  input$length <- 85 
+}
+
+shinyApp(ui, server)
+# Error: Attempted to assign value to a read-only reactivevalues object
+
+
+```
+- can only be read in a reactive context like renderPlot() or reactive()
+
+---
+
+# Server : Render function
+
+- Outputs are reactive: Shiny recalculates them as the user interacts and changes them.
+
+- there is a **render** function designed for each type of output: renderPrint, renderTable, renderPlot, etc. 
+
+.pull-center[
+![](img/shiny_render.png)]
+
+---
+
+# Server: Render Function (cont'd)
+
+- render functions do two things:
+
+  1.  reactive contexts that tracks inputs for outputs uses 
+
+  2.  converts R code to HTML to display
+
+
+---
+# Server
+- output: list-like object named after the output ID. This is to send info back to the browser
+
+```{r eval=F, echo=T}
+ui <- fluidPage(
+  textOutput("message")
+)
+
+server <- function(input, output, session) {
+  output$message <- renderText({
+    "Hello shiny course!"
+  })
+}
+```
+---
+# Introducing Reactivity
+
+- Shiny uses reactivity to make apps interactive (Stay tuned.)
+
+--
+
+- In reactivity, you are telling someone how to do something without telling them to actually do it (just instructions)
+
+-- 
+
+- Example: 
+
+
+```{r eval=F, echo=T}
+server <- function(input, output, session) {
+  output$summary <- renderPrint({
+    dataset <- get(input$dataset, "package:datasets", inherits = FALSE)
+    summary(dataset)
+  })
+  
+  output$table <- renderTable({
+    dataset <- get(input$dataset, "package:datasets", inherits = FALSE)
+    dataset
+  })
+}
+```
+
+???
+
+The left-hand side of the assignment operator (<-), output$IDENTIFIER, indicates that you’re providing the recipe for the Shiny output with the matching ID. The right-hand side of the assignment specifies uses a specific render function to wrap a code block that you provide; in the example above, we use renderPrint and renderTable wrap our app-specific logic.
+
+---
 
 
 
