@@ -197,20 +197,40 @@ Pause 1 minute
 Pause 1 minute
 
 ---
+# Shiny App Contents
 
-#UI
+--
+- UI: Layout and app appearance
+
+```{r eval=F, echo=T}
+ui <- fluidePage() 
+```
+--
+- Server: instructions to build the app
+```{r eval=F, echo=T}
+server <- function(input, output){} 
+
+shinyApp(ui=ui, server=server)
+```
+
+---
 
 ## Now let's build a real app using college grad student data (fivethirtyeight package) 
 
 ---
-# Remember the shiny template we started with:
+# App setup: Step 1
+
+- load the data from five thirty eight
 ```{r eval=F, echo=T}
 library(shiny)
+library(fivethirtyeight)
 ui <- fluidPage()
 server <- function(input, output) {}
 shinyApp(ui = ui, server = server)
 ```
+
 ---
+
 # UI with HTML
 
 - UI simply creates HTML
@@ -289,5 +309,18 @@ shinyApp(ui = ui, server = server)
 ### Open and run tags_html_06.R
 
 ---
+
+# UI: Widgets
+
+- shiny also has built in widgets
+
+.pull-center[
+![](img/shiny_widgets.png)]
+
+
+
+---
+
+
 
 

@@ -135,6 +135,14 @@ shinyApp(ui = ui, server = server)
 
 - your file must be named app.R for Rstudio to recognize it as a shiny app.
 
+-- 
+
+- Your turn: Run app01.R
+
+
+???
+
+Run app01.R
 
 ---
 
@@ -150,6 +158,14 @@ shinyApp(ui = ui, server = server)
 --
 
 - our examples today will primarily be app.R files to make the concepts easy to follow.
+
+--
+
+- Your turn: Open folder App_02 and run either the ui or server file.
+
+???
+
+Run app02.R
 
 ---
 
@@ -167,29 +183,58 @@ shinyApp(ui = ui, server = server)
 - you can customize it like app
 
 ---
+#Exercise 02
 
 ## Let's a real app: Run app.R in App03
 
+???
+Pause 1 minute
 ---
 
-## Your turn: Add a title to this app.
+## Your turn: Add a title to this app reference code in app_01.R
+
+???
+
+Pause 1 minute
 
 ---
+# Shiny App Contents
 
-#UI
+--
+- UI: Layout and app appearance
+
+
+```r
+ui &lt;- fluidePage() 
+```
+--
+- Server: instructions to build the app
+
+```r
+server &lt;- function(input, output){} 
+
+shinyApp(ui=ui, server=server)
+```
+
+---
 
 ## Now let's build a real app using college grad student data (fivethirtyeight package) 
 
 ---
-# Remember the shiny template we started with:
+# App setup: Step 1
+
+- load the data from five thirty eight
 
 ```r
 library(shiny)
+library(fivethirtyeight)
 ui &lt;- fluidPage()
 server &lt;- function(input, output) {}
 shinyApp(ui = ui, server = server)
 ```
+
 ---
+
 # UI with HTML
 
 - UI simply creates HTML
@@ -204,9 +249,10 @@ shinyApp(ui = ui, server = server)
 --
 - Don't have to use `tags` for common objects
 
+
 ---
 
-#UI with HTML example
+#UI with HTML example: Run ui_html_05.R
 
 ```r
 library(shiny)
@@ -221,7 +267,9 @@ strong("bold text")
 server &lt;- function(input, output) {}
 shinyApp(ui = ui, server = server)
 ```
+???
 
+- Pause 1 minute
 ---
 
 # UI 
@@ -258,11 +306,24 @@ shinyApp(ui = ui, server = server)
 
 - look at basics_ui.R to the right
 
+-
+
 ---
 
-# Let's see a mix of the two: UI with Layout and HTML
+# You can also use tags within *Panel command: UI with Layout and HTML
 
 ### Open and run tags_html_06.R
+
+---
+
+# UI: Widgets
+
+- shiny also has built in widgets
+
+.pull-center[
+![](img/shiny_widgets.png)]
+
+
 
 ---
     </textarea>
