@@ -134,6 +134,14 @@ shinyApp(ui = ui, server = server)
 
 - your file must be named app.R for Rstudio to recognize it as a shiny app.
 
+-- 
+
+- Your turn: Run app01.R
+
+
+???
+
+Run app01.R
 
 ---
 
@@ -149,6 +157,14 @@ shinyApp(ui = ui, server = server)
 --
 
 - our examples today will primarily be app.R files to make the concepts easy to follow.
+
+--
+
+- Your turn: Open folder App_02 and run either the ui or server file.
+
+???
+
+Run app02.R
 
 ---
 
@@ -166,12 +182,19 @@ shinyApp(ui = ui, server = server)
 - you can customize it like app
 
 ---
+#Exercise 02
 
 ## Let's a real app: Run app.R in App03
 
+???
+Pause 1 minute
 ---
 
-## Your turn: Add a title to this app.
+## Your turn: Add a title to this app reference code in app_01.R
+
+???
+
+Pause 1 minute
 
 ---
 
@@ -202,9 +225,10 @@ shinyApp(ui = ui, server = server)
 --
 - Don't have to use `tags` for common objects
 
+
 ---
 
-#UI with HTML example
+#UI with HTML example: Run ui_html_05.R
 ```{r eval=F, echo=T}
 library(shiny)
 ui <- fluidPage(
@@ -218,7 +242,9 @@ strong("bold text")
 server <- function(input, output) {}
 shinyApp(ui = ui, server = server)
 ```
+???
 
+- Pause 1 minute
 ---
 
 # UI 
@@ -254,9 +280,11 @@ shinyApp(ui = ui, server = server)
 
 - look at basics_ui.R to the right
 
+-
+
 ---
 
-# Let's see a mix of the two: UI with Layout and HTML
+# You can also use tags within *Panel command: UI with Layout and HTML
 
 ### Open and run tags_html_06.R
 
