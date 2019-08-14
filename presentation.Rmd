@@ -130,6 +130,8 @@ shinyApp(ui = ui, server = server)
 
 - All your code is in one place
 
+--
+
 - your file must be named app.R for Rstudio to recognize it as a shiny app.
 
 
@@ -144,6 +146,8 @@ shinyApp(ui = ui, server = server)
 
 - This is great for more complex applications
 
+--
+
 - our examples today will primarily be app.R files to make the concepts easy to follow.
 
 ---
@@ -157,11 +161,105 @@ shinyApp(ui = ui, server = server)
 
 - this will automatically set up the template for you.
 
+--
+
 - you can customize it like app
 
 ---
 
+## Let's a real app: Run app.R in App03
 
+---
 
+## Your turn: Add a title to this app.
+
+---
+
+#UI
+
+## Now let's build a real app using college grad student data (fivethirtyeight package) 
+
+---
+# Remember the shiny template we started with:
+```{r eval=F, echo=T}
+library(shiny)
+ui <- fluidPage()
+server <- function(input, output) {}
+shinyApp(ui = ui, server = server)
+```
+---
+# UI with HTML
+
+- UI simply creates HTML
+--
+- HTML tags can be found at http://shiny.rstudio.com/articles/tag-glossary.html
+--
+- Simple ones: h1() = header1, br() = line break, strong() = bold text
+--
+- You can access HTML tag using `tags` object
+--
+- h2 = tags$h2(), br = tags$br()
+--
+- Don't have to use `tags` for common objects
+
+---
+
+#UI with HTML example
+```{r eval=F, echo=T}
+library(shiny)
+ui <- fluidPage(
+	h1("Shiny App Title"),
+	h4("This is awesome"),
+	"Hello",
+"Shiny workshop",
+br(),
+strong("bold text")
+)
+server <- function(input, output) {}
+shinyApp(ui = ui, server = server)
+```
+
+---
+
+# UI 
+
+---
+# UI with Layouts
+
+- Typically all items stack up after the other.
+--
+- Layouts: http://shiny.rstudio.com/articles/layout-guide.html
+--
+- advanced layouts: fluidRow and column to build your layout up from a grid system or navbarpage
+--
+- We’ll use sidebarLayout() as done in the example
+
+---
+```{r eval=F, echo=T}
+library(shiny)
+ui <- fluidPage(
+  titlePanel("title panel"),
+
+  sidebarLayout(
+    sidebarPanel("sidebar panel"),
+    mainPanel("main panel")
+  )
+)
+server <- function(input, output) {}
+shinyApp(ui = ui, server = server)
+```
+???
+
+- fluidpage creates a page that dynamically adapts to the size of your window
+
+- look at basics_ui.R to the right
+
+---
+
+# Let's see a mix of the two: UI with Layout and HTML
+
+### Open and run tags_html_06.R
+
+---
 
 

@@ -161,6 +161,90 @@ shinyApp(ui = ui, server = server)
 - you can customize it like app
 
 ---
+
+## Let's a real app: Run app.R in App03
+
+---
+
+## Your turn: Add a title to this app.
+
+--
+
+#UI
+
+## Now let's build a real app using college grad student data (fivethirtyeight package) 
+
+---
+# Remember the shiny template we started with:
+
+```r
+library(shiny)
+ui &lt;- fluidPage()
+server &lt;- function(input, output) {}
+shinyApp(ui = ui, server = server)
+```
+---
+# UI with HTML
+
+- UI simply creates HTML
+- HTML tags can be found at http://shiny.rstudio.com/articles/tag-glossary.html
+- Simple ones: h1() = header1, br() = line break, strong() = bold text
+- You can access HTML tag using `tags` object
+- h2 = tags$h2(), br = tags$br()
+- Don't have to use `tags` for common objects
+
+---
+
+#UI with HTML example
+
+
+
+
+```r
+library(shiny)
+ui &lt;- fluidPage(
+	h1("Shiny App Title"),
+	h4("This is awesome"),
+	"Hello",
+"Shiny workshop",
+br(),
+strong("bold text")
+)
+server &lt;- function(input, output) {}
+shinyApp(ui = ui, server = server)
+```
+
+
+---
+# UI with Layouts
+
+- Typically all items stack up after the other.
+
+- Layouts: http://shiny.rstudio.com/articles/layout-guide.html
+- We’ll use sidebarLayout() as done in the example
+
+---
+
+```r
+library(shiny)
+ui &lt;- fluidPage(
+  titlePanel("title panel"),
+
+  sidebarLayout(
+    sidebarPanel("sidebar panel"),
+    mainPanel("main panel")
+  )
+)
+server &lt;- function(input, output) {}
+shinyApp(ui = ui, server = server)
+```
+???
+
+- fluidpage creates a page that dynamically adapts to the size of your window
+
+- look at basics_ui.R to the right
+
+---
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

@@ -1,7 +1,10 @@
 library(fivethirtyeight)
+library(dplyr)
+
 
 ui <- fluidPage(
-  selectInput("data", label = "experiment",
+  titlePanel("Look at this awesome airline data"),
+  selectInput("airline", label = "experiment",
               choices = unique(airline_safety$airline)),
   verbatimTextOutput("summary"),
   tableOutput("table")
@@ -9,12 +12,16 @@ ui <- fluidPage(
 
 server <- function(input, output, session) {
   output$summary <- renderPrint({
-    dataset <- get(input$data, "package:fivethirtyeight", inherits = FALSE)
+    dataset <- airline_safety %>% 
+               filter(airline==input$airline)
     summary(dataset)
   })
   
   output$table <- renderTable({
-    dataset <- get(input$data, "package:fivethirtyeight", inherits = FALSE)
+    dataset <- airline_safety %>% 
+      filter(airline==input$airline)
     dataset
   })
 }
+
+shinyApp(ui = ui, server = server) 
