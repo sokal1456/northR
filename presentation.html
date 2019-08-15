@@ -665,16 +665,17 @@ output$myplot &lt;- renderPlot({
 
 --
 
-- Reactive source: user input through browser interaction (reactiveValues())
+- Reactive source: user input through browser interaction (reactiveValues()) 
+Ex: "input$"
 
 --
 
 - Reactive endpoint: resulting plot or table that appears in the app (reactive())
-
+Ex: the filtered datasets we will create
 --
 
 - Reactive conductor: connects sources and endpoints together (observe())
-
+Ex: output
 ---
 
 # Reactive Objects demo
@@ -743,7 +744,7 @@ output$myplot &lt;- renderPlot({
 
 ---
 
-# Your turn: Open college_grad_app_05.R and correct to make the title function work.
+# Your turn: Open college_grad_app_05.R and correct to make the title function work using reactive expressions
 
 ???
 
@@ -838,8 +839,47 @@ server &lt;- function(input, output) {
 ```
 ---
 
+# Walk through a demo of using observe
+
+- Let's say we want to add an alert to our app to say "Hi user!"
+
+---
+
+# Adding Observe in the UI
 
 
+```r
+actionButton("button1","Directions")
+```
+---
+
+Adding Observe to the server
+
+
+```r
+observe({
+    input$button1
+    showModal(modalDialog(
+      title = "Directions",
+      "You are looking at recent college grad data from the five thiry eight package in R"
+    ))
+})
+```
+---
+
+Summary: Reactives vs. Observers
+
+---
+  
+  
+
+# See how your code works: Run it in showcase mode
+
+- runApp('Code/Exercises/add_title_03.R', display.mode = "showcase")
+
+- runExample("01_hello")
+
+- code is highlighted in server as it is run
 
 ---
 
@@ -859,7 +899,7 @@ server &lt;- function(input, output) {
 
 ---
 # Other cool things as noted by Dean Attali 
-- ?conditionalPanel - conditionally show UI elements
+- conditionalPanel - conditionally show UI elements
 - global.R - objects here are available to both ui.R and server.R
 - Use navbarPage() or tabsetPanel() for multiple tabs in UI
 - Use DT::dataTableOutput() instead of tableOutput() for an interactive table instead of ugly static table
