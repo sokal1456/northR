@@ -63,7 +63,10 @@ class: center, middle, inverse, title-slide
 ---
 Packages required to be installed:
 
-shiny, ggplot2, fivethirtyeight
+- shiny 
+- ggplot2 
+- fivethirtyeight
+- dbplyr
 
 ---
 
@@ -869,9 +872,25 @@ observe({
 
 Summary: Reactives vs. Observers
 
+- Both contain expressions that can be executed
+
+- Differences:
+
+- reactive expressions return values but observers don't
+
+- observers "eagerly" respond to reactives but reactive expressions don't 
+
+- reactive expressions should not have side effects and observers are only useful for 
+their side effects
+
+
 ---
   
+# Your turn: Add your own observe button to show a pop up message 
+
+# looking for volunteers to present their solution!
   
+---
 
 # See how your code works: Run it in showcase mode
 

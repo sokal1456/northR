@@ -60,7 +60,10 @@ options(htmltools.dir.version = FALSE)
 ---
 Packages required to be installed:
 
-shiny, ggplot2, fivethirtyeight
+- shiny 
+- ggplot2 
+- fivethirtyeight
+- dbplyr
 
 ---
 
