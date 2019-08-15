@@ -833,6 +833,16 @@ server <- function(input, output) {
 
 ---
 
+# See how your code works: Run it in showcase mode
+
+- runApp('Code/Exercises/add_title_03.R', display.mode = "showcase")
+
+- runExample("01_hello")
+
+- code is highlighted in server as it is run
+
+---
+
 # Publishing your apps
 
 - Go to http://www.shinyapps.io/ and make an account
@@ -849,7 +859,7 @@ server <- function(input, output) {
 
 ---
 # Other cool things as noted by Dean Attali 
-- ?conditionalPanel - conditionally show UI elements
+- conditionalPanel - conditionally show UI elements
 - global.R - objects here are available to both ui.R and server.R
 - Use navbarPage() or tabsetPanel() for multiple tabs in UI
 - Use DT::dataTableOutput() instead of tableOutput() for an interactive table instead of ugly static table
