@@ -2,7 +2,7 @@ library(shiny)
 ui <- fluidPage(
   titlePanel("title panel"),
   
-  sidebarLayout(position = "right",
+  sidebarLayout(
                 sidebarPanel("sidebar panel"),
                 mainPanel("main panel")
   )

@@ -64,6 +64,7 @@ Packages required to be installed:
 - ggplot2 
 - fivethirtyeight
 - dbplyr
+- DT
 
 ---
 
@@ -128,6 +129,15 @@ runExample("01_hello")
 library(shiny)
 #runExample("01_hello")
 ```
+
+# See how your code works: Run it in showcase mode
+
+- runApp('Code/Exercises/add_title_03.R', display.mode = "showcase")
+
+- runExample("01_hello")
+
+- code is highlighted in server as it is run
+
 ---
 
 
@@ -169,7 +179,7 @@ shinyApp(ui = ui, server = server)
 
 - your file must be named app.R for Rstudio to recognize it as a shiny app.
 
--- 
+--
 
 - Your turn: Run app01.R
 
@@ -216,7 +226,9 @@ Run app02.R
 
 - you can customize it like app
 
+
 ---
+
 #Exercise 01
 
 ## Let's a run real app: Go to Exercises and Run add_title_03.R
@@ -881,15 +893,6 @@ their side effects
 
 # looking for volunteers to present their solution!
   
----
-
-# See how your code works: Run it in showcase mode
-
-- runApp('Code/Exercises/add_title_03.R', display.mode = "showcase")
-
-- runExample("01_hello")
-
-- code is highlighted in server as it is run
 
 ---
 
