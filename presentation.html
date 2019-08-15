@@ -619,18 +619,69 @@ Step 5: Use server to connect Input and outputs
 
 #Your turn: Exercise 03
 
-- Add an action button to create an action trigger.
+- use checkboxInput to show the data summary.
 
 - create a new DT:rendertable item to show the underlying data 
 
-- show the first 10 rows of the data in the summary
+- show the first 10 rows of the data in the summary using dataTableOutput
 
+- update college_grad_app_02.R in the Exercises folder
 
 ???
 
 5 minutes
 
 ---
+# Reactivity
+
+- Shiny uses a reactive framework
+
+- supports reactive functionality
+
+- When value of variable z changes, anything that relies on z is re-evaluated
+
+- Regular R expressions would need to get updated with new values
+
+---
+# Reactivity
+- input$plot_num is a reactive value
+
+
+```r
+output$myplot &lt;- renderPlot({
+    plot(rnorm(input$plot_num))
+})
+```
+
+- output$myplot depends on input$plot_num 
+
+- All inputs are automatically reactive, so if you use any input inside a render* function, the output will re-render any time input changes
+
+---
+
+# Reactive Objects
+
+- Three objects
+
+--
+
+- Reactive source: user input through browser interaction
+
+--
+
+- Reactive endpoint: resulting plot or table that appears in the app
+
+--
+
+- Reactive conductor: connects sources and endpoints together.
+
+---
+
+# Reactive Objects demo
+
+- let's update the college grad data app to include the following:
+
+-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>

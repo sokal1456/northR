@@ -1,6 +1,7 @@
 library(shiny)
 library(ggplot2)
 library(fivethirtyeight)
+library(dbplyr)
 
 # Define UI for application that plots college graduate  -----------
 ui <- fluidPage(
@@ -31,7 +32,11 @@ ui <- fluidPage(
   # Show data table ---------------------------------------------
   checkboxInput(inputId = "show_data",
                 label = "Show data table",
-                value = TRUE)
+                value = TRUE),
+  selectInput(inputId = "major_category", 
+              label = "Major Category",
+              choices = c(unique(college_recent_grads$major_category)),
+              selected = "Engineering")
   ),
     # Output: Show scatterplot --------------------------------------
     mainPanel(
@@ -44,9 +49,14 @@ ui <- fluidPage(
 # Define server function required to create the scatterplot ---------
 server <- function(input, output) {
   
+  major_subset<-reactive({
+    req(input$major_category)
+    filter(college_recent_grads, major_category %in% input$major_category)
+  })
+  
   # Create scatterplot object the plotOutput function is expecting --
   output$scatterplot <- renderPlot({
-    ggplot(data = college_grad_students, aes_string(x = input$x, y = input$y)) +
+    ggplot(data = major_subset(), aes_string(x = input$x, y = input$y)) +
       geom_line(linetype = input$line)+
       geom_point()+
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
@@ -54,7 +64,7 @@ server <- function(input, output) {
   
   output$college_data <- DT::renderDataTable(
     if(input$show_data){
-      DT::datatable(data = college_recent_grads, 
+      DT::datatable(data = major_subset(), 
                     options = list(pageLength = 10), 
                     rownames = FALSE)
     }

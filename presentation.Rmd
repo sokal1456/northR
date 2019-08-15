@@ -563,7 +563,7 @@ The left-hand side of the assignment operator (<-), output$IDENTIFIER, indicates
 ```{r eval=F, echo=T}
 
   output$scatterplot <- renderPlot({
-    ggplot(data = college_grad_students, aes_string(x = input$x, y = input$y)) +
+    ggplot(data = college_recent_grads, aes_string(x = input$x, y = input$y)) +
       geom_point()+
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   })
@@ -625,5 +625,115 @@ Step 5: Use server to connect Input and outputs
 5 minutes
 
 ---
+# Reactivity
+
+- Shiny uses a reactive framework
+
+- supports reactive functionality
+
+- When value of variable z changes, anything that relies on z is re-evaluated
+
+- Regular R expressions would need to get updated with new values
+
+---
+# Reactivity
+- input$plot_num is a reactive value
+
+```{r eval=F, echo=T}
+output$myplot <- renderPlot({
+    plot(rnorm(input$plot_num))
+})
+```
+
+- output$myplot depends on input$plot_num 
+
+- All inputs are automatically reactive, so if you use any input inside a render* function, the output will re-render any time input changes
+
+---
+
+# Reactive Objects
+
+- Three objects
+
+--
+
+- Reactive source: user input through browser interaction
+
+--
+
+- Reactive endpoint: resulting plot or table that appears in the app
+
+--
+
+- Reactive conductor: connects sources and endpoints together.
+
+---
+
+# Reactive Objects demo
+
+--
+
+- let's update the college grad data app to include the following:
+
+--
+
+- Include a dropdown filter on major category
+
+--
+
+- filter and save as reactive expression
+
+-- 
+
+- show the filtered data in the plot
+
+-- 
+
+- show the filtered data in the table
+
+---
+
+# Let's create the dropdown in the UI section
+
+```{r eval=F, echo=T}
+  selectInput(inputId = "major_category", 
+              label = "Major Category",
+              choices = c(unique(college_recent_grads$major_category)),
+              selected = "Engineering")
+  ),
+
+```
+
+--- 
+
+# Reactive Expression
+
+- In server.r: 
+```{r eval=F, echo=T}
+# library dbplyr
+  major_subset<-reactive({
+    req(input$major_category)
+    filter(college_recent_grads, major_category %in% input$major_category)
+  })
+
+```
+
+---
+# Use the new dataset in your plot and table
+
+- Use major_subset() in place of your dataset
+```{r eval=F, echo=T}
+ output$college_data <- DT::renderDataTable(
+    if(input$show_data){
+      DT::datatable(data = major_subset(), 
+                    options = list(pageLength = 10), 
+                    rownames = FALSE)
+    }
+ )
+```
+
+---
 
 
+    
+    
