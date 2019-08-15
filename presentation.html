@@ -32,11 +32,23 @@ class: center, middle, inverse, title-slide
 6. Future development
 7. A few more cool applications
 ---
+
 # Hi I am Soumya!
 
+--
+
 - R-Ladies New York Founder
+
+--
+
 - R/Finance Committee Member
+
+--
+
 - Quantitative analyst in the public sector
+
+--
+
 - Do a lot of hands of development in Shiny 
 
 --
@@ -52,10 +64,6 @@ class: center, middle, inverse, title-slide
 Packages required to be installed:
 
 shiny, ggplot2, fivethirtyeight
----
-background-image: url("https://media.giphy.com/media/Ta1zCPgNNr2GQ/giphy.gif")
-class: center, inverse
-
 
 ---
 
@@ -79,6 +87,10 @@ class: center, inverse
 
 - Can be used to build interactive web pages with R
 
+---
+
+# Why is Shiny amazing?
+
 --
 
 - No knowledge of HTML/CSS/JavaScript required
@@ -87,8 +99,16 @@ class: center, inverse
 
 - Can share R analysis with any audience type.
 
+--
+
+- So many bells and whistles you can add to applications
+
 ---
 
+background-image: url("https://media.giphy.com/media/Ta1zCPgNNr2GQ/giphy.gif")
+class: center, inverse
+
+---
 
 # Let's get started: Install shiny!
 
@@ -102,6 +122,8 @@ runExample("01_hello")
 
 
 ---
+
+
 # Shiny App Basics: Part 1
 
 - Every Shiny App is made up of two parts
@@ -275,6 +297,22 @@ shinyApp(ui = ui, server = server)
 
 - UI simply creates HTML (Shiny allows you to create UI without having to know HTML)
 
+
+```r
+sliderInput("num", "Choose a number",
+            min = 0, max = 500, value = 10)
+```
+
+HTML code
+
+```r
+&lt;div class="form-group shiny-input-container"&gt;
+  &lt;label class="control-label" for="num"&gt;Choose a number&lt;/label&gt;
+  &lt;input class="js-range-slider" id="num" data-min="0" data-max="500" data-from="10" data-step="1" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-keyboard="true" data-keyboard-step="1" data-drag-interval="true" data-data-type="number"/&gt;
+&lt;/div&gt; 
+```
+
+
 --
 
 - HTML tags can be found at http://shiny.rstudio.com/articles/tag-glossary.html
@@ -324,11 +362,17 @@ shinyApp(ui = ui, server = server)
 # UI with Layouts
 
 - Typically all items stack up after the other.
+
 --
+
 - Layouts: http://shiny.rstudio.com/articles/layout-guide.html
+
 --
+
 - advanced layouts: fluidRow and column to build your layout up from a grid system or navbarpage
+
 --
+
 - We’ll use sidebarLayout() as done in the example
 
 ---

@@ -29,11 +29,23 @@ options(htmltools.dir.version = FALSE)
 6. Future development
 7. A few more cool applications
 ---
+
 # Hi I am Soumya!
 
+--
+
 - R-Ladies New York Founder
+
+--
+
 - R/Finance Committee Member
+
+--
+
 - Quantitative analyst in the public sector
+
+--
+
 - Do a lot of hands of development in Shiny 
 
 --
@@ -49,17 +61,17 @@ options(htmltools.dir.version = FALSE)
 Packages required to be installed:
 
 shiny, ggplot2, fivethirtyeight
----
-background-image: url("https://media.giphy.com/media/Ta1zCPgNNr2GQ/giphy.gif")
-class: center, inverse
-
 
 ---
 
 ## Throughout this talk we will switch back and forth between demos and slides.  
 
-## Materials from this talk can be found here:
+## Materials from this talk can be found here: https://github.com/sokal1456/northR
 
+
+
+---
+# A big thank you to the many shiny tutorials out there by Joe Cheng, the Rstudio Shiny team and Dean Attali that helped me learn and helped inspire this tutorial today.
 
 
 ---
@@ -76,6 +88,10 @@ class: center, inverse
 
 - Can be used to build interactive web pages with R
 
+---
+
+# Why is Shiny amazing?
+
 --
 
 - No knowledge of HTML/CSS/JavaScript required
@@ -84,8 +100,16 @@ class: center, inverse
 
 - Can share R analysis with any audience type.
 
+--
+
+- So many bells and whistles you can add to applications
+
 ---
 
+background-image: url("https://media.giphy.com/media/Ta1zCPgNNr2GQ/giphy.gif")
+class: center, inverse
+
+---
 
 # Let's get started: Install shiny!
 
@@ -102,9 +126,13 @@ library(shiny)
 #runExample("01_hello")
 ```
 ---
+
+
 # Shiny App Basics: Part 1
 
 - Every Shiny App is made up of two parts
+
+--
 
 - UI: a web page that shows the app to the user. UI is HTML using Shiny’s functions and is where the layout of hte app is defined (how the app looks). 
 
@@ -186,15 +214,15 @@ Run app02.R
 - you can customize it like app
 
 ---
-#Exercise 02
+#Exercise 01
 
-## Let's a real app: Run app.R in App03
+## Let's a run real app: Go to Exercises and Run add_title_03.R
 
 ???
 Pause 1 minute
 ---
 
-## Your turn: Add a title to this app reference code in app_01.R
+## Your turn: Add a title to this app reference code in add_title_03.R
 
 ???
 
@@ -220,6 +248,14 @@ shinyApp(ui=ui, server=server)
 ---
 
 ## Now let's build a real app using college grad student data (fivethirtyeight package) 
+
+--
+
+- Two requirements: 
+
+- Axis Inputs: users can enter what they want to plot.
+
+- Plot: return the plot based on the axis inputs selected.
 
 
 ---
@@ -253,7 +289,7 @@ shinyApp(ui = ui, server = server)
 
 
 ---
-# App Basics: UI 
+# UI Basics: Part 1
 
 ## Inputs and Outputs
 
@@ -266,9 +302,27 @@ shinyApp(ui = ui, server = server)
 
 ---
 
-# UI 
+# UI Basics: Part 2
 
 - UI simply creates HTML (Shiny allows you to create UI without having to know HTML)
+
+```{r eval=F, echo=T}
+sliderInput("num", "Choose a number",
+            min = 0, max = 500, value = 10)
+```
+
+HTML code
+```{r eval=F, echo=T}
+<div class="form-group shiny-input-container">
+  <label class="control-label" for="num">Choose a number</label>
+  <input class="js-range-slider" id="num" data-min="0" data-max="500" data-from="10" data-step="1" data-grid="true" data-grid-num="10" data-grid-snap="false" data-prettify-separator="," data-keyboard="true" data-keyboard-step="1" data-drag-interval="true" data-data-type="number"/>
+</div> 
+
+```
+
+---
+
+# UI Basics: Part 3
 
 --
 
@@ -310,9 +364,7 @@ shinyApp(ui = ui, server = server)
 ???
 
 - Pause 1 minute
----
-
-# UI 
+- in the demo_examples folder
 
 ---
 # UI with Layouts
@@ -327,9 +379,9 @@ shinyApp(ui = ui, server = server)
 
 - advanced layouts: fluidRow and column to build your layout up from a grid system or navbarpage
 
---
+---
 
-- We’ll use sidebarLayout() as done in the example
+# We’ll use sidebarLayout(): Run Basics_ui_04.R and basics_ui_right_04.R
 
 ---
 ```{r eval=F, echo=T}
@@ -350,6 +402,8 @@ shinyApp(ui = ui, server = server)
 - fluidpage creates a page that dynamically adapts to the size of your window
 
 - look at basics_ui_right_04.R for examples
+
+- this is also in the demo_examples folder
 
 
 ---
@@ -504,5 +558,68 @@ The left-hand side of the assignment operator (<-), output$IDENTIFIER, indicates
 
 ---
 
+# Let's finish our example from earlier with college grad data
+
+```{r eval=F, echo=T}
+
+  output$scatterplot <- renderPlot({
+    ggplot(data = college_grad_students, aes_string(x = input$x, y = input$y)) +
+      geom_point()+
+      theme(axis.text.x = element_text(angle = 90, hjust = 1))
+  })
+}
+
+```
+
+---
+
+# Summary to build shiny apps
+
+Step 1: Create app from template 
+
+Step 2: Add to the fluidPage()
+
+Step 3: Use Input() functions to create inputs
+
+Step 4: Use Output() functions to create outputs
+
+Step 5: Use server to connect Input and outputs
+
+---
+# Run college_grad_app.R
+
+--- 
+
+# Your turn: Exercise 02
+
+- create a new input for the user to select the line type to display (selectinput)
+- inputid: line
+- label = "Line Type",
+- choices = c("dashed", "dotted")
+- selected = "mpaa_rating")
+
+- Use this to update the ggplot function in server.R
+
+???
+
+5 minutes 
+
+---
+
+# Solution: college_grad_app_02.R
+
+---
+
+#Your turn: Exercise 03
+
+- Add an action button to create an action trigger.
+
+- use 
+
+???
+
+5 minutes
+
+---
 
 

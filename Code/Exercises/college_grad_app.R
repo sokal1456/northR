@@ -23,7 +23,6 @@ ui <- fluidPage(
                   choices = c("major_category", "major"), 
                   selected = "major_category")
     ),
-    
     # Output: Show scatterplot --------------------------------------
     mainPanel(
       plotOutput(outputId = "scatterplot")
@@ -38,7 +37,8 @@ server <- function(input, output) {
   output$scatterplot <- renderPlot({
     ggplot(data = college_grad_students, aes_string(x = input$x, y = input$y)) +
       geom_point()+
-      theme(axis.text.x = element_text(angle = 90, hjust = 1))
+      geom_line()+
+      theme(axis.text.x = element_text(angle = 65, hjust = 1))
   })
 }
 
