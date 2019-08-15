@@ -26,11 +26,17 @@ ui <- fluidPage(
     selectInput(inputId = "line", 
                 label = "Line Type:",
                 choices = c("dashed", "dotted"),
-                selected = "dashed")
+                selected = "dashed"),
+ 
+  # Show data table ---------------------------------------------
+  checkboxInput(inputId = "show_data",
+                label = "Show data table",
+                value = TRUE)
   ),
     # Output: Show scatterplot --------------------------------------
     mainPanel(
-      plotOutput(outputId = "scatterplot")
+      plotOutput(outputId = "scatterplot"),
+      DT::dataTableOutput(outputId = "college_data")
     )
   )
 )
@@ -46,7 +52,15 @@ server <- function(input, output) {
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   })
   
+  output$college_data <- DT::renderDataTable(
+    if(input$show_data){
+      DT::datatable(data = college_grad_students[, 1:10], 
+                    options = list(pageLength = 10), 
+                    rownames = FALSE)
+    }
+  )
 }
+
 
 # Run the application -----------------------------------------------
 shinyApp(ui = ui, server = server)

@@ -612,9 +612,13 @@ Step 5: Use server to connect Input and outputs
 
 #Your turn: Exercise 03
 
-- Add an action button to create an action trigger.
+- use checkboxInput to show the data summary.
 
-- use 
+- create a new DT:rendertable item to show the underlying data 
+
+- show the first 10 rows of the data in the summary using dataTableOutput
+
+- update college_grad_app_02.R in the Exercises folder
 
 ???
 
