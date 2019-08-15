@@ -40,7 +40,11 @@ ui <- fluidPage(
   numericInput(inputId = "n_samp", 
                label = "Sample size:", 
                min = 1, max = nrow(college_recent_grads), 
-               value = 50)
+               value = 50),
+  # Enter text for plot title ---------------------------------------------
+  textInput(inputId = "plot_title", 
+            label = "Plot title", 
+            placeholder = "Enter text to be used as plot title")
   
   ),
     # Output: Show scatterplot --------------------------------------
@@ -54,6 +58,11 @@ ui <- fluidPage(
 # Define server function required to create the scatterplot ---------
 server <- function(input, output) {
   
+  #allow user to enter plot title
+ # output$pretty_plot_title <- toupper(input$plot_title)
+  
+  pretty_plot_title <- reactive({ toupper(input$plot_title) })
+  
   major_subset<-reactive({
     req(input$major_category)
     filter(college_recent_grads, major_category %in% input$major_category)
@@ -64,7 +73,8 @@ server <- function(input, output) {
     ggplot(data = major_subset(), aes_string(x = input$x, y = input$y)) +
       geom_line(linetype = input$line)+
       geom_point()+
-      theme(axis.text.x = element_text(angle = 90, hjust = 1))
+      theme(axis.text.x = element_text(angle = 90, hjust = 1))+
+      labs(title = pretty_plot_title())
   })
   
   output$college_data <- DT::renderDataTable(

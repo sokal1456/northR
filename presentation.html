@@ -571,7 +571,7 @@ The left-hand side of the assignment operator (&lt;-), output$IDENTIFIER, indica
 
 ```r
   output$scatterplot &lt;- renderPlot({
-    ggplot(data = college_grad_students, aes_string(x = input$x, y = input$y)) +
+    ggplot(data = college_recent_grads, aes_string(x = input$x, y = input$y)) +
       geom_point()+
       theme(axis.text.x = element_text(angle = 90, hjust = 1))
   })
@@ -665,23 +665,243 @@ output$myplot &lt;- renderPlot({
 
 --
 
-- Reactive source: user input through browser interaction
+- Reactive source: user input through browser interaction (reactiveValues())
 
 --
 
-- Reactive endpoint: resulting plot or table that appears in the app
+- Reactive endpoint: resulting plot or table that appears in the app (reactive())
 
 --
 
-- Reactive conductor: connects sources and endpoints together.
+- Reactive conductor: connects sources and endpoints together (observe())
 
 ---
 
 # Reactive Objects demo
 
+--
+
 - let's update the college grad data app to include the following:
 
--
+--
+
+- Include a dropdown filter on major category
+
+--
+
+- filter and save as reactive expression
+
+-- 
+
+- show the filtered data in the plot
+
+-- 
+
+- show the filtered data in the table
+
+---
+
+# Let's create the dropdown in the UI section
+
+
+```r
+  selectInput(inputId = "major_category", 
+              label = "Major Category",
+              choices = c(unique(college_recent_grads$major_category)),
+              selected = "Engineering")
+  ),
+```
+
+--- 
+
+# Reactive Expression
+
+- In server.r: 
+
+```r
+# library dbplyr
+  major_subset&lt;-reactive({
+    req(input$major_category)
+    filter(college_recent_grads, major_category %in% input$major_category)
+  })
+```
+
+---
+# Use the new dataset in your plot and table
+
+- Use major_subset() in place of your dataset
+
+```r
+ output$college_data &lt;- DT::renderDataTable(
+    if(input$show_data){
+      DT::datatable(data = major_subset(), 
+                    options = list(pageLength = 10), 
+                    rownames = FALSE)
+    }
+ )
+```
+
+---
+
+# Your turn: Open college_grad_app_05.R and correct to make the title function work.
+
+???
+
+5 minutes
+
+
+---
+
+Solution: college_grad_app_06.R
+
+---
+# Reactives Summary
+
+--
+
+- **Reactive** variable means anything that depends on it gets re-executed automatically
+
+--
+
+- Use to reduce duplication
+
+--
+
+- Make it easier to handle complex calculations
+
+---
+
+# Reactive Context
+
+- Reactive values can only be used in reactive contexts: 3 ways
+
+--
+
+- Any render* function is a reactive context
+
+--
+
+- Use reactive({...})  to assign a reactive variable
+
+--
+
+- Use observe({...})  to access a reactive variable
+
+
+---
+
+# This means you can't do this:
+
+```r
+server&lt;-function(input, output, session){
+  print(input$x)
+}
+
+# Operation not allowed outside a reactive context
+```
+
+---
+# Reactive : Implementation of reactive conductors
+
+- Can access values or other reactive expressions
+
+- can return a value
+
+- useful for caching results (only updated when the value is changed)
+
+
+```r
+server &lt;- function(input, output) {
+	x &lt;- reactive({
+input$num + 1
+		 })
+}
+```
+
+---
+
+# Observe : Implementation of reactive endpoints
+
+- can access reactive sources and reactive expressions
+
+- **don't** return value
+
+- used for side effects
+
+
+```r
+server &lt;- function(input, output) {
+	observe({
+        print(input$num)
+    })
+}
+```
+---
+
+
+
+
+---
+
+# Publishing your apps
+
+- Go to http://www.shinyapps.io/ and make an account
+- Make sure all your app files are in an isolated folder
+- Click “Publish Application” in RStudio (you might need to follow instructions)
+
+---
+
+# Inlude shiny in your reports!
+
+- Set output: html_document
+- Set runtime: shiny
+- You can now use interactive inputs/outputs in Rmarkdown!
+
+---
+# Other cool things as noted by Dean Attali 
+- ?conditionalPanel - conditionally show UI elements
+- global.R - objects here are available to both ui.R and server.R
+- Use navbarPage() or tabsetPanel() for multiple tabs in UI
+- Use DT::dataTableOutput() instead of tableOutput() for an interactive table instead of ugly static table
+_ Add images by placing image under “www/image.png” and using UI function img(src = "image.png")
+- Use update*Input() functions to update input values from R
+
+--- 
+
+# Discover more shiny packages
+
+- leaflet (http://rstudio.github.io/leaflet/)
+Add interactive maps to your apps
+- shinyjs (https://github.com/daattali/shinyjs)
+Enhance user experience in Shiny apps
+- shinythemes (http://rstudio.github.io/shinythemes/)
+Easily alter the appearance of your app
+- shinyalert (http://ggvis.rstudio.com/)
+Create pop up messages in shiny
+- shinydashboard (https://rstudio.github.io/shinydashboard/)
+Gives you tools to create “dashboards”
+
+
+---
+
+# Get Inspired
+
+- Rstudio Shiny gallery:  https://shiny.rstudio.com/gallery/ (there was an even a shiny competiton this past year!)
+
+- Show me Shiny : https://shiny.rstudio.com/gallery/
+
+---
+# Other Resources
+
+- Shiny official tutorial http://shiny.rstudio.com/tutorial
+- Shiny cheatsheet http://shiny.rstudio.com/images/shiny-cheatsheet.pdf
+- Lots of short useful topics http://shiny.rstudio.com/articles
+- Shiny in Rmarkdown http://rmarkdown.rstudio.com/authoring_shiny.html
+- Get help from http://stackoverflow.com/questions/tagged/shiny  
+- Publish your app free with RStudio http://www.shinyapps.io
+
+---
+# Thank you!
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
