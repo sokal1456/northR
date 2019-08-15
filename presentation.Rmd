@@ -601,6 +601,7 @@ Step 4: Use Output() functions to create outputs
 Step 5: Use server to connect Input and outputs
 
 ---
+
 # Run college_grad_app.R
 
 --- 
@@ -611,7 +612,7 @@ Step 5: Use server to connect Input and outputs
 - inputid: line
 - label = "Line Type",
 - choices = c("dashed", "dotted")
-- selected = "mpaa_rating")
+- selected = "dotted")
 
 - Use this to update the ggplot function in server.R
 
