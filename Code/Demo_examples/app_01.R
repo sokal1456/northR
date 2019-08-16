@@ -5,4 +5,4 @@ ui <- fluidPage(
 )
 server <- function(input, output) {}
 
-# shinyApp(ui = ui, server = server) same code that is run when you hit the Run App button.
+shinyApp(ui = ui, server = server) 

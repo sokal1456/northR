@@ -2,6 +2,9 @@ library(shiny)
 library(ggplot2)
 library(fivethirtyeight)
 
+# read_csv
+# load_data
+
 # Define UI for application that plots college graduate  -----------
 ui <- fluidPage(
   

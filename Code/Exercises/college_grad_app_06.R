@@ -37,10 +37,6 @@ ui <- fluidPage(
               label = "Major Category",
               choices = c(unique(college_recent_grads$major_category)),
               selected = "Engineering"),
-  numericInput(inputId = "n_samp", 
-               label = "Sample size:", 
-               min = 1, max = nrow(college_recent_grads), 
-               value = 50),
   # Enter text for plot title ---------------------------------------------
   textInput(inputId = "plot_title", 
             label = "Plot title", 

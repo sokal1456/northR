@@ -15,7 +15,7 @@ ui <- fluidPage(
       # Select variable for y-axis ----------------------------------
       selectInput(inputId = "y", 
                   label = "Y-axis:",
-                  choices = c("total", "employed", "employed_fulltime", "unemployed"), 
+                  choices = c("employed", "employed_fulltime", "unemployed"), 
                   selected = "employed"),
       
       # Select variable for x-axis ----------------------------------

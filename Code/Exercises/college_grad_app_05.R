@@ -37,10 +37,6 @@ ui <- fluidPage(
               label = "Major Category",
               choices = c(unique(college_recent_grads$major_category)),
               selected = "Engineering"),
-  numericInput(inputId = "n_samp", 
-               label = "Sample size:", 
-               min = 1, max = nrow(college_recent_grads), 
-               value = 50),
   # Enter text for plot title ---------------------------------------------
   textInput(inputId = "plot_title", 
             label = "Plot title", 
@@ -59,7 +55,7 @@ ui <- fluidPage(
 server <- function(input, output) {
   
   #allow user to enter plot title
-  output$pretty_plot_title <- toupper(input$plot_title)
+  pretty_plot_title <- reactive({toupper(input$plot_title)})
   
   major_subset<-reactive({
     req(input$major_category)
@@ -72,7 +68,7 @@ server <- function(input, output) {
       geom_line(linetype = input$line)+
       geom_point()+
       theme(axis.text.x = element_text(angle = 90, hjust = 1))+
-      labs(title = output$pretty_plot_title)
+      labs(title = pretty_plot_title())
   })
   
   output$college_data <- DT::renderDataTable(
